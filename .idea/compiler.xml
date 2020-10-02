@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="criptografia-EA1" />
         <module name="Evaluación-de-aprendizaje-1_Criptografía" />
       </profile>
     </annotationProcessing>
