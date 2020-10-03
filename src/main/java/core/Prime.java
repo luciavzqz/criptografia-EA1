@@ -4,75 +4,61 @@ import java.math.BigInteger;
 
 public class Prime {
 
-    public static boolean isPrime(BigInteger n, int precision){
-        if (n.compareTo(new BigInteger("341550071728321")) >= 0) {
-            return n.isProbablePrime(precision);
-        }
+    private int k = 0;
+    private BigInteger m;
+    private BigInteger n;
+    private BigInteger a = new BigInteger("2");
 
-        int intN = n.intValue();
-        if (intN == 1 || intN == 4 || intN == 6 || intN == 8) return false;
-        if (intN == 2 || intN == 3 || intN == 5 || intN == 7) return true;
-
-        int[] primesToTest = getPrimesToTest(n);
-        if (n.equals(new BigInteger("3215031751"))) {
-            return false;
-        }
-        BigInteger d = n.subtract(BigInteger.ONE);
-        BigInteger s = BigInteger.ZERO;
-        while (d.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
-            d = d.shiftRight(1);
-            s = s.add(BigInteger.ONE);
-        }
-        for (int a : primesToTest) {
-            if (try_composite(a, d, n, s)) {
-                return false;
-            }
-        }
-        return true;
+    public Prime(BigInteger n) {
+        this.n = n;
     }
 
-    public static boolean isPrime(BigInteger n) {
-        return isPrime(n, 100);
+    public boolean isPrime() {
+        makeStep1();
+        //we skip step 2 since its picking an a between 1 and n-1, we'll always pick a = 2.
+        return makeStep3();
     }
 
-    public static boolean isPrime(int n) {
-        return isPrime(BigInteger.valueOf(n), 100);
+    /*
+    Step 1: n-1 = (2^k) * m
+    search for k and m (both whole numbers)
+    To find K we divide n-1 by 2^k until the result is not whole.
+    Of course, as any power of two is even, we can divide n-1 by two until we find the number
+     */
+
+    private void makeStep1() {
+        BigInteger nMinus1 = this.n.subtract(BigInteger.ONE);
+        while(nMinus1.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+            nMinus1 = nMinus1.divide(BigInteger.TWO);
+            this.k ++;
+        }
+        //find m
+        this.m = this.n.subtract(BigInteger.ONE).divide(BigInteger.TWO.pow(this.k));
+        System.out.println("K is: " + this.k + " " + "And m is: " + this.m);
     }
 
-    public static boolean isPrime(long n) {
-        return isPrime(BigInteger.valueOf(n), 100);
-    }
+    /*
+    Step 3 is the tricky one. You want to evaluate b0 = (a^n) mod n. If b0 equals +1 or -1, then n is Prime (probably)!
+    If b0 isn't equal to +1 or -1, then we test bn = (bn-1 ^ 2) mod n. If bn equals +1 -> it's composite 100%. If bn equals -1 -> is prime (probably).
+    Remember that a mod being equal to -1, means that is also equal to n-1 (yea, do the math and you'll realize)
+     */
+    private boolean makeStep3() {
+        BigInteger b0 = this.a.modPow(this.m, this.n);
+        System.out.println(b0);
+        BigInteger bnext;
+        if(b0.equals(BigInteger.ONE) || b0.equals(new BigInteger("-1")) || b0.equals(this.n.subtract(BigInteger.ONE))) {
+            return true;
+        }
 
-    private static int[] getPrimesToTest(BigInteger n) {
-        if (n.compareTo(new BigInteger("3474749660383")) >= 0) {
-            return new int[]{2, 3, 5, 7, 11, 13, 17};
+        for(int i = 0; i < k; i++) {
+            bnext = b0.modPow(BigInteger.TWO, this.n);
+            System.out.println(bnext);
+            /*if(bnext.equals(BigInteger.ONE))
+                return false;*/
+            if(bnext.equals(n.subtract(BigInteger.ONE)))
+                return true;
+            b0 = bnext;
         }
-        if (n.compareTo(new BigInteger("2152302898747")) >= 0) {
-            return new int[]{2, 3, 5, 7, 11, 13};
-        }
-        if (n.compareTo(new BigInteger("118670087467")) >= 0) {
-            return new int[]{2, 3, 5, 7, 11};
-        }
-        if (n.compareTo(new BigInteger("25326001")) >= 0) {
-            return new int[]{2, 3, 5, 7};
-        }
-        if (n.compareTo(new BigInteger("1373653")) >= 0) {
-            return new int[]{2, 3, 5};
-        }
-        return new int[]{2, 3};
-    }
-
-    private static boolean try_composite(int a, BigInteger d, BigInteger n, BigInteger s) {
-        BigInteger aB = BigInteger.valueOf(a);
-        if (aB.modPow(d, n).equals(BigInteger.ONE)) {
-            return false;
-        }
-        for (int i = 0; BigInteger.valueOf(i).compareTo(s) < 0; i++) {
-            // if pow(a, 2**i * d, n) == n-1
-            if (aB.modPow(BigInteger.valueOf(2).pow(i).multiply(d), n).equals(n.subtract(BigInteger.ONE))) {
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
 }
