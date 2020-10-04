@@ -4,11 +4,12 @@ import core.Operation;
 import core.Prime;
 import core.RandomNumber;
 
+import java.io.IOException;
 import java.math.BigInteger;
 
 public class Main {
-    public static void main (String args[]) {
-
+    public static void main (String args[]) throws IOException {
+        /*
         BigInteger num1 = RandomNumber.generateBigRandomNumber(90);
         Prime prime = new Prime(num1); //just put here new BigInteger("number") to test for an specific number
         System.out.println(prime.isPrime());
@@ -36,6 +37,7 @@ public class Main {
 
         number = RandomNumber.generateBigRandomNumber(10);
         System.out.println("Número random generado: " + number);
-        System.out.println(Operation.root(number,3));
+        System.out.println(Operation.root(number,3)); */
+        new Menu().initMenu();
     }
 }
