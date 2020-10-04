@@ -8,6 +8,7 @@ public class Prime {
     private BigInteger m;
     private BigInteger n;
     private BigInteger a = new BigInteger("2");
+    private static final BigInteger TWO = BigInteger.valueOf(2);
 
     public Prime(BigInteger n) {
         this.n = n;
@@ -28,12 +29,12 @@ public class Prime {
 
     private void makeStep1() {
         BigInteger nMinus1 = this.n.subtract(BigInteger.ONE);
-        while(nMinus1.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
-            nMinus1 = nMinus1.divide(BigInteger.TWO);
+        while(nMinus1.mod(TWO).equals(BigInteger.ZERO)) {
+            nMinus1 = nMinus1.divide(TWO);
             this.k ++;
         }
         //find m
-        this.m = this.n.subtract(BigInteger.ONE).divide(BigInteger.TWO.pow(this.k));
+        this.m = this.n.subtract(BigInteger.ONE).divide(TWO.pow(this.k));
         System.out.println("K is: " + this.k + " " + "And m is: " + this.m);
     }
 
@@ -51,7 +52,7 @@ public class Prime {
         }
 
         for(int i = 0; i < k; i++) {
-            bnext = b0.modPow(BigInteger.TWO, this.n);
+            bnext = b0.modPow(TWO, this.n);
             System.out.println(bnext);
             /*if(bnext.equals(BigInteger.ONE))
                 return false;*/
