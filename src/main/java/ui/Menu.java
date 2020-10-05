@@ -15,7 +15,7 @@ public class Menu {
     private static final int CHECK_FROM_USER = 2;
     private static final int OPERATE_RANDOM = 3;
     private static final int OPERATE_FROM_USER = 4;
-    private static final int RANDOM_FROM_USER = 5;
+    //private static final int RANDOM_FROM_USER = 5;
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -24,8 +24,7 @@ public class Menu {
             System.out.println("Para verificar si un número aleatorio es primo, presione 1. \n" +
                     "Para verificar si un número ingresado por usted es primo, presione 2. \n" +
                     "Para realizar operaciones aritméticas con 2 números random, presione 3. \n" +
-                    "Para realizar operaciones aritméticas con 2 números ingresados por usted, presione 4. \n" +
-                    "Para generar un número aleatorio, presione 5.");
+                    "Para realizar operaciones aritméticas con 2 números ingresados por usted, presione 4.");
             System.out.println("");
             System.out.print("Opción: ");
             int input = Integer.parseInt(this.reader.readLine());
@@ -52,12 +51,8 @@ public class Menu {
                 operateFromUser();
                 break;
 
-            case RANDOM_FROM_USER:
-                generateRandom();
-                break;
-
             default:
-                System.out.println("Seleccione una de las opciones listadas arriba.");
+                System.out.println("Seleccione una de las opciones listadas abajo.\n");
         }
     }
 
@@ -92,9 +87,9 @@ public class Menu {
         BigInteger num = new BigInteger(this.reader.readLine());
         Prime prime = new Prime(num);
         if(prime.isPrime()) {
-            System.out.println("El número aleatorio generado es primo.");
+            System.out.println("El número ingresado es primo.");
         } else {
-            System.out.println("El número aleatorio generado no es primo");
+            System.out.println("El número ingresado no es primo");
         }
         System.out.println("\n");
     }
