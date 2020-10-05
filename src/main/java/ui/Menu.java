@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.util.Date;
+import java.util.Random;
 
 public class Menu {
 
@@ -73,8 +75,8 @@ public class Menu {
     }
 
     private void operateRandom() {
-        BigInteger num1 = RandomNumber.generateBigRandomNumber(RandomNumber.generateBigRandomNumber(2).intValue());
-        BigInteger num2 = RandomNumber.generateBigRandomNumber(RandomNumber.generateBigRandomNumber(2).intValue());
+        BigInteger num1 = RandomNumber.generateBigRandomNumber(new Random().nextInt(90-10) + 10);
+        BigInteger num2 = RandomNumber.generateBigRandomNumber(new Random().nextInt(90-10) + 10);
         System.out.println("Se trabajará con los números random:");
         System.out.println("\t Numero 1: " + num1);
         System.out.println("\t Numero 2: " + num2);
@@ -95,7 +97,7 @@ public class Menu {
     }
 
     private void checkIfRandomIsPrime() {
-        BigInteger num1 = RandomNumber.generateBigRandomNumber(RandomNumber.generateBigRandomNumber(2).intValue());
+        BigInteger num1 = RandomNumber.generateBigRandomNumber(new Random().nextInt(90-10) + 10);
         Prime prime = new Prime(num1);
         System.out.println("Número random generado: " + num1);
         if(prime.isPrime()) {
