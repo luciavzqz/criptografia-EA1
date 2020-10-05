@@ -15,16 +15,21 @@ public class Menu {
     private static final int CHECK_FROM_USER = 2;
     private static final int OPERATE_RANDOM = 3;
     private static final int OPERATE_FROM_USER = 4;
+    private static final int RANDOM_FROM_USER = 5;
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public void initMenu() throws IOException {
         while(true) {
-            System.out.println("Para verificar si un número aleatorio es random, presione 1 \n" +
-                    "Para verificar si un número ingresado por usted es random, presione 2 \n" +
-                    "Para realizar operaciones aritméticas con 2 números random, presione 3 \n" +
-                    "Para realizar operaciones aritméticas con 2 números ingresados por usted, presione 4");
+            System.out.println("Para verificar si un número aleatorio es primo, presione 1. \n" +
+                    "Para verificar si un número ingresado por usted es primo, presione 2. \n" +
+                    "Para realizar operaciones aritméticas con 2 números random, presione 3. \n" +
+                    "Para realizar operaciones aritméticas con 2 números ingresados por usted, presione 4. \n" +
+                    "Para generar un número aleatorio, presione 5.");
+            System.out.println("");
+            System.out.print("Opción: ");
             int input = Integer.parseInt(this.reader.readLine());
+            System.out.println("");
             evaluateInput(input);
         }
     }
@@ -47,6 +52,10 @@ public class Menu {
                 operateFromUser();
                 break;
 
+            case RANDOM_FROM_USER:
+                generateRandom();
+                break;
+
             default:
                 System.out.println("Seleccione una de las opciones listadas arriba.");
         }
@@ -65,13 +74,16 @@ public class Menu {
         System.out.println("La resta de ambos da: " +  Operation.subtraction(num1, num2));
         System.out.println("La división de el 1ro por el 2do da: " + Operation.division(num1, num2));
         System.out.println("La multiplicación de ambos da: " +  Operation.multiplication(num1, num2));
+        System.out.println("\n");
     }
 
     private void operateRandom() {
         BigInteger num1 = RandomNumber.generateBigRandomNumber(RandomNumber.generateBigRandomNumber(2).intValue());
         BigInteger num2 = RandomNumber.generateBigRandomNumber(RandomNumber.generateBigRandomNumber(2).intValue());
-        System.out.println("Se trabajará con los números random: " +  num1 + "\n" +
-                            "y " + num2);
+        System.out.println("Se trabajará con los números random:");
+        System.out.println("\t Numero 1: " + num1);
+        System.out.println("\t Numero 2: " + num2);
+        System.out.println("");
         doOperations(num1, num2);
     }
 
@@ -84,6 +96,7 @@ public class Menu {
         } else {
             System.out.println("El número aleatorio generado no es primo");
         }
+        System.out.println("\n");
     }
 
     private void checkIfRandomIsPrime() {
@@ -95,6 +108,20 @@ public class Menu {
         } else {
             System.out.println("El número aleatorio generado no es primo");
         }
+        System.out.println("\n");
+    }
+
+    private void generateRandom() throws IOException {
+        System.out.print("Ingrese la cantidad de dígitos: ");
+        int digits = Integer.parseInt(this.reader.readLine());
+        System.out.println("");
+
+        BigInteger num1 = RandomNumber.generateBigRandomNumber(digits);
+
+        System.out.println("Número random generado: " + num1);
+        System.out.println("Cantidad de bits del número: " + num1.bitLength());
+        System.out.println("Cantidad de digitos del número: " + digits);
+        System.out.println("\n");
     }
 
 }

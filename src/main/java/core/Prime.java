@@ -51,7 +51,7 @@ public class Prime {
 
         for(int i = 0; i < k; i++) {
             bnext = b0.modPow(TWO, this.n);
-            System.out.println(bnext);
+            //System.out.println(bnext);
             /*if(bnext.equals(BigInteger.ONE))
                 return false;*/
             if(bnext.equals(n.subtract(BigInteger.ONE)))
