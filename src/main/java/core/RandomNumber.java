@@ -23,14 +23,7 @@ public class RandomNumber {
     public static BigInteger generateBigRandomNumberFromBits(int digits){
         int bitsize = (int)(digits * 3.3);
         SecureRandom rng = new SecureRandom();
-        BigInteger random = createRandomForBitSize(bitsize, rng);
+        BigInteger random = new BigInteger(bitsize - 1,rng);
         return random;
-    }
-
-    private static BigInteger createRandomForBitSize(int bitsize, Random rng) {
-        BigInteger random = new BigInteger(bitsize - 1, rng);
-        BigInteger lowestNumberBitSize = BigInteger.valueOf(2).pow(bitsize - 1);
-        BigInteger randomBitSize = lowestNumberBitSize.add(random);
-        return randomBitSize;
     }
 }
