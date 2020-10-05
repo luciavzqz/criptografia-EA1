@@ -1,6 +1,7 @@
 package core;
 
 import java.math.BigInteger;
+import java.net.BindException;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -14,9 +15,9 @@ public class RandomNumber {
     }
 
     private static BigInteger createRandomForBitSize(int bitsize, Random rng) {
-        BigInteger randomFromZero = new BigInteger(bitsize - 1, rng);
+        BigInteger random = new BigInteger(bitsize - 1, rng);
         BigInteger lowestNumberBitSize = BigInteger.valueOf(2).pow(bitsize - 1);
-        BigInteger randomBitSize = lowestNumberBitSize.add(randomFromZero);
+        BigInteger randomBitSize = lowestNumberBitSize.add(random);
         return randomBitSize;
     }
 }

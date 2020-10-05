@@ -35,7 +35,6 @@ public class Prime {
         }
         //find m
         this.m = this.n.subtract(BigInteger.ONE).divide(TWO.pow(this.k));
-        System.out.println("K is: " + this.k + " " + "And m is: " + this.m);
     }
 
     /*
@@ -45,7 +44,6 @@ public class Prime {
      */
     private boolean makeStep3() {
         BigInteger b0 = this.a.modPow(this.m, this.n);
-        System.out.println(b0);
         BigInteger bnext;
         if(b0.equals(BigInteger.ONE) || b0.equals(new BigInteger("-1")) || b0.equals(this.n.subtract(BigInteger.ONE))) {
             return true;
@@ -53,7 +51,7 @@ public class Prime {
 
         for(int i = 0; i < k; i++) {
             bnext = b0.modPow(TWO, this.n);
-            System.out.println(bnext);
+            //System.out.println(bnext);
             /*if(bnext.equals(BigInteger.ONE))
                 return false;*/
             if(bnext.equals(n.subtract(BigInteger.ONE)))

@@ -16,6 +16,7 @@ public class Operation {
         return number1.multiply(number2);
     }
 
+
     public static BigInteger division(BigInteger number1, BigInteger number2) {
         return number1.divide(number2);
     }
